@@ -152,6 +152,7 @@ export default function Home() {
 
   function selectedBurgerOption(category) {
     setSelectedBurger(category);
+    console.log(category.title)
   }
 
   const FoodFun = item => {
@@ -390,6 +391,20 @@ export default function Home() {
           </View>
         </View>
       )}
+
+      <TouchableOpacity style={{height: 60, width: 60, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', borderRadius: 30,
+    position: 'absolute', bottom: 15, right: 15, shadowColor: '#FF0036', elevation: 10}}
+    onPress = {()=> console.log("Cart Pressed")}>
+        <View style={{height: 50, width: 50, backgroundColor: '#FF0036', borderRadius: 30, alignItems: 'center', justifyContent: 'center'}}>
+          <Image 
+          source={require("../assets/cart.png")}
+          resizeMode = "contain"
+          style = {{
+            width: 22, height: 28, tintColor: 'white'
+          }}
+          />
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }
