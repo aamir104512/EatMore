@@ -103,6 +103,43 @@ const PizzasData = [
   },
 ];
 
+const ChickenData = [
+  {
+    id: 1,
+    title: 'Chicken Korma',
+    image: require('../assets/chicken1.png'),
+    star: require('../assets/stars.png'),
+    price: '$12',
+  },
+  {
+    id: 2,
+    title: 'Butter Chicken',
+    image: require('../assets/chicken2.png'),
+    star: require('../assets/stars.png'),
+    price: '$15',
+  },
+  {
+    id: 3,
+    title: 'Mughlai Chicken',
+    image: require('../assets/chicken3.png'),
+    star: require('../assets/stars.png'),
+    price: '$20',
+  },
+  {
+    id: 4,
+    title: 'Tikka Masala',
+    image: require('../assets/chicken4.png'),
+    star: require('../assets/stars.png'),
+    price: '$20',
+  },
+  {
+    id: 5,
+    title: 'Dry Roasted',
+    image: require('../assets/chicken5.png'),
+    star: require('../assets/stars.png'),
+    price: '$20',
+  },
+];
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState(1);
@@ -303,7 +340,7 @@ export default function Home() {
           />
         </View>
       </View>
-      {foodCategory == 1 && 
+      {foodCategory == 1 && (
         <View style={{marginTop: 20}}>
           <Text style={{fontSize: 18, color: 'black'}}>Burgers</Text>
           <View>
@@ -318,24 +355,41 @@ export default function Home() {
             </View>
           </View>
         </View>
-      }
+      )}
 
-      {foodCategory == 2 && 
-              <View style={{marginTop: 20}}>
-              <Text style={{fontSize: 18, color: 'black'}}>Pizzas</Text>
-              <View>
-                <View style={{marginTop: 15, height: 230}}>
-                  <FlatList
-                    data={PizzasData}
-                    renderItem={renderBurgers}
-                    horizontal
-                    keyExtractor={item => item.id}
-                    showsHorizontalScrollIndicator={false}
-                  />
-                </View>
-              </View>
+      {foodCategory == 2 && (
+        <View style={{marginTop: 20}}>
+          <Text style={{fontSize: 18, color: 'black'}}>Pizzas</Text>
+          <View>
+            <View style={{marginTop: 15, height: 230}}>
+              <FlatList
+                data={PizzasData}
+                renderItem={renderBurgers}
+                horizontal
+                keyExtractor={item => item.id}
+                showsHorizontalScrollIndicator={false}
+              />
             </View>
-      }
+          </View>
+        </View>
+      )}
+
+      {foodCategory == 3 && (
+        <View style={{marginTop: 20}}>
+          <Text style={{fontSize: 18, color: 'black'}}>Chicken</Text>
+          <View>
+            <View style={{marginTop: 15, height: 230}}>
+              <FlatList
+                data={ChickenData}
+                renderItem={renderBurgers}
+                horizontal
+                keyExtractor={item => item.id}
+                showsHorizontalScrollIndicator={false}
+              />
+            </View>
+          </View>
+        </View>
+      )}
     </View>
   );
 }
