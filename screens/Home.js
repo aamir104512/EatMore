@@ -1,0 +1,267 @@
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  FlatList,
+} from 'react-native';
+import React, {useState} from 'react';
+import LinearGradient from 'react-native-linear-gradient';
+
+const DATA = [
+  {
+    id: 1,
+    title: 'Burgers',
+    image: require('../assets/burger.png'),
+  },
+  {
+    id: 2,
+    title: 'Pizza',
+    image: require('../assets/pizza.png'),
+  },
+  {
+    id: 3,
+    title: 'Chicken',
+    image: require('../assets/chicken.png'),
+  },
+];
+
+const BurgersData = [
+  {
+    id: 1,
+    title: 'Zinger Burger',
+    image: require('../assets/zinger.png'),
+    star: require("../assets/stars.png"),
+    price: "$12"
+  },
+  {
+    id: 2,
+    title: 'Chicken Burger',
+    image: require('../assets/hamburger.png'),
+    star: require("../assets/stars.png"),
+    price: "$15"
+  },
+  {
+    id: 3,
+    title: 'Dummy Burger',
+    image: require('../assets/hamburger.png'),
+    star: require("../assets/stars.png"),
+    price: "$20"
+  },
+];
+
+export default function Home() {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedBurger, setSelectedBurger] = useState(null);
+
+  function selectedOption(category) {
+    setSelectedCategory(category);
+  }
+
+  function selectedBurgerOption(category) {
+    setSelectedBurger(category);
+  }
+
+  const renderBurgers = ({item}) => {
+    return (
+      <TouchableOpacity
+        style={{
+          width: 173,
+          height: 211,
+          borderRadius: 34,
+          elevation: 10,
+          marginHorizontal: 10,
+          shadowColor: selectedBurger?.id == item.id ? '#FF0036' : '#A8A7A7'
+        }}
+        onPress={() => selectedBurgerOption(item)}>
+        <LinearGradient
+          colors={
+            selectedBurger?.id == item.id
+              ? ['#FF0036', '#FF6787']
+              : ['white', 'white']
+          }
+          useAngle = {true}
+          locations = {[0 , 1]}
+          angle = {180}
+          style={{
+            flex: 1,
+            borderRadius: 34,
+            justifyContent: 'center',
+          }}
+          start={{x: 0.5, y: 0}}
+          end={{x: 0.5, y: 1}}>
+          <View style={{alignItems: 'center',}}>
+            <Image
+              source={item.image}
+              resizeMode="contain"
+              style={{
+                width: 136,
+                height: 94,
+              }}
+            />
+          </View>
+
+          <Text
+            style={{
+              color: selectedBurger?.id == item.id ? 'white' : 'black',
+              fontSize: 16,
+              paddingLeft: 15,
+              marginTop: 10
+            }}>
+            {item.title}
+          </Text>
+
+          <View style={{paddingLeft: 15}}>
+            <Image
+              source={item.star}
+              resizeMode="contain"
+              style={{
+                width: 44,
+                height: 13,
+                marginTop: 3
+              }}
+            />
+          </View>
+
+          <Text
+            style={{
+              color: selectedBurger?.id == item.id ? 'white' : 'black',
+              fontSize: 24,
+              paddingLeft: 15,
+              marginTop: 7
+            }}>
+            {item.price}
+          </Text>
+        </LinearGradient>
+      </TouchableOpacity>
+    );
+  };
+  const renderItem = ({item}) => {
+    return (
+      <TouchableOpacity
+        style={{
+          width: 110,
+          height: 69,
+          borderRadius: 25,
+          backgroundColor: 'white',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginHorizontal: 5,
+          borderWidth: 1,
+          borderColor: selectedCategory?.id == item.id ? '#FF0036' : 'white',
+          shadowColor: selectedCategory?.id == item.id ? '#FF0036' : '#A8A7A7',
+          elevation: 5,
+        }}
+        onPress={() => selectedOption(item)}>
+        <Image
+          source={item.image}
+          resizeMode="contain"
+          style={{
+            width: 26,
+            height: 20,
+            tintColor: selectedCategory?.id == item.id ? '#FF0036' : '#A8A7A7',
+          }}
+        />
+        <Text
+          style={{
+            color: selectedCategory?.id == item.id ? '#FF0036' : '#A8A7A7',
+            fontSize: 15,
+          }}>
+          {item.title}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+  return (
+    <View style={{backgroundColor: '#F7F6FF', flex: 1, paddingHorizontal: 20}}>
+      <View
+        style={{
+          marginTop: 30,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+        <TouchableOpacity>
+          <Image
+            source={require('../assets/menu.png')}
+            resizeMode="contain"
+            style={{height: 10, width: 26, tintColor: 'black'}}
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            height: 40,
+            width: 40,
+            backgroundColor: 'white',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 20,
+          }}>
+          <Image
+            source={require('../assets/user.png')}
+            resizeMode="contain"
+            style={{height: 36, width: 36, borderRadius: 20}}
+          />
+        </TouchableOpacity>
+      </View>
+
+      <View style={{marginTop: 30}}>
+        <Text style={{fontSize: 20, color: 'black'}}>Choose the</Text>
+        <Text style={{fontSize: 20, color: 'black', fontWeight: 'bold'}}>
+          Food you love
+        </Text>
+      </View>
+
+      <View style={{marginTop: 20}}>
+        <TextInput
+          placeholder="Search for a food item"
+          placeholderTextColor={'#A8A7A7'}
+          style={{
+            height: 44,
+            width: '100%',
+            backgroundColor: 'white',
+            borderRadius: 22,
+            paddingLeft: 20,
+            color: 'black',
+          }}
+        />
+      </View>
+
+      <View style={{marginTop: 30}}>
+        <Text style={{fontSize: 18, color: 'black'}}>Categories</Text>
+
+        <View style={{marginTop: 15, height: 80}}>
+          <FlatList
+            data={DATA}
+            renderItem={renderItem}
+            horizontal
+            keyExtractor={item => item.id}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+      </View>
+
+      <View style={{marginTop: 20}}>
+        <Text style={{fontSize: 18, color: 'black'}}>Burgers</Text>
+
+        {/* {
+          selectedCategory.id == 1 &&  */}
+
+        <View>
+          <View style={{marginTop: 15, height: 230}}>
+            <FlatList
+              data={BurgersData}
+              renderItem={renderBurgers}
+              horizontal
+              keyExtractor={item => item.id}
+              showsHorizontalScrollIndicator={false}
+            />
+          </View>
+        </View>
+        {/* } */}
+      </View>
+    </View>
+  );
+}
