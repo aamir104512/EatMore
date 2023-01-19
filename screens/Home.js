@@ -31,29 +31,44 @@ const BurgersData = [
   {
     id: 1,
     title: 'Zinger Burger',
-    image: require('../assets/zinger.png'),
-    star: require("../assets/stars.png"),
-    price: "$12"
+    image: require('../assets/burger2.png'),
+    star: require('../assets/stars.png'),
+    price: '$12',
   },
   {
     id: 2,
     title: 'Chicken Burger',
-    image: require('../assets/hamburger.png'),
-    star: require("../assets/stars.png"),
-    price: "$15"
+    image: require('../assets/burger1.png'),
+    star: require('../assets/stars.png'),
+    price: '$15',
   },
   {
     id: 3,
-    title: 'Dummy Burger',
+    title: 'Vegetable Burger',
+    image: require('../assets/burger3.png'),
+    star: require('../assets/stars.png'),
+    price: '$20',
+  },
+  {
+    id: 4,
+    title: 'Egg Burger',
+    image: require('../assets/burger4.png'),
+    star: require('../assets/stars.png'),
+    price: '$20',
+  },
+  {
+    id: 5,
+    title: 'Vegetable Burger',
     image: require('../assets/hamburger.png'),
-    star: require("../assets/stars.png"),
-    price: "$20"
+    star: require('../assets/stars.png'),
+    price: '$20',
   },
 ];
 
 export default function Home() {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(1);
   const [selectedBurger, setSelectedBurger] = useState(null);
+  const [foodCategory, setFoodCategory] = useState(1);
 
   function selectedOption(category) {
     setSelectedCategory(category);
@@ -62,6 +77,12 @@ export default function Home() {
   function selectedBurgerOption(category) {
     setSelectedBurger(category);
   }
+
+  const FoodFun = item => {
+    selectedOption(item);
+    // console.log(item.id)
+    setFoodCategory(item.id);
+  };
 
   const renderBurgers = ({item}) => {
     return (
@@ -72,7 +93,7 @@ export default function Home() {
           borderRadius: 34,
           elevation: 10,
           marginHorizontal: 10,
-          shadowColor: selectedBurger?.id == item.id ? '#FF0036' : '#A8A7A7'
+          shadowColor: selectedBurger?.id == item.id ? '#FF0036' : '#A8A7A7',
         }}
         onPress={() => selectedBurgerOption(item)}>
         <LinearGradient
@@ -81,9 +102,9 @@ export default function Home() {
               ? ['#FF0036', '#FF6787']
               : ['white', 'white']
           }
-          useAngle = {true}
-          locations = {[0 , 1]}
-          angle = {180}
+          useAngle={true}
+          locations={[0, 1]}
+          angle={180}
           style={{
             flex: 1,
             borderRadius: 34,
@@ -91,7 +112,7 @@ export default function Home() {
           }}
           start={{x: 0.5, y: 0}}
           end={{x: 0.5, y: 1}}>
-          <View style={{alignItems: 'center',}}>
+          <View style={{alignItems: 'center'}}>
             <Image
               source={item.image}
               resizeMode="contain"
@@ -107,7 +128,7 @@ export default function Home() {
               color: selectedBurger?.id == item.id ? 'white' : 'black',
               fontSize: 16,
               paddingLeft: 15,
-              marginTop: 10
+              marginTop: 10,
             }}>
             {item.title}
           </Text>
@@ -119,7 +140,7 @@ export default function Home() {
               style={{
                 width: 44,
                 height: 13,
-                marginTop: 3
+                marginTop: 3,
               }}
             />
           </View>
@@ -129,7 +150,7 @@ export default function Home() {
               color: selectedBurger?.id == item.id ? 'white' : 'black',
               fontSize: 24,
               paddingLeft: 15,
-              marginTop: 7
+              marginTop: 7,
             }}>
             {item.price}
           </Text>
@@ -137,6 +158,7 @@ export default function Home() {
       </TouchableOpacity>
     );
   };
+
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
@@ -153,7 +175,7 @@ export default function Home() {
           shadowColor: selectedCategory?.id == item.id ? '#FF0036' : '#A8A7A7',
           elevation: 5,
         }}
-        onPress={() => selectedOption(item)}>
+        onPress={() => FoodFun(item)}>
         <Image
           source={item.image}
           resizeMode="contain"
@@ -242,26 +264,24 @@ export default function Home() {
           />
         </View>
       </View>
-
-      <View style={{marginTop: 20}}>
-        <Text style={{fontSize: 18, color: 'black'}}>Burgers</Text>
-
-        {/* {
-          selectedCategory.id == 1 &&  */}
-
-        <View>
-          <View style={{marginTop: 15, height: 230}}>
-            <FlatList
-              data={BurgersData}
-              renderItem={renderBurgers}
-              horizontal
-              keyExtractor={item => item.id}
-              showsHorizontalScrollIndicator={false}
-            />
+      {foodCategory == 1 && (
+        <View style={{marginTop: 20}}>
+          <Text style={{fontSize: 18, color: 'black'}}>Burgers</Text>
+          <View>
+            <View style={{marginTop: 15, height: 230}}>
+              <FlatList
+                data={BurgersData}
+                renderItem={renderBurgers}
+                horizontal
+                keyExtractor={item => item.id}
+                showsHorizontalScrollIndicator={false}
+              />
+            </View>
           </View>
         </View>
-        {/* } */}
-      </View>
+      )}
+
+      {foodCategory == 2 && <Text>Pizzas come here</Text>}
     </View>
   );
 }
