@@ -65,6 +65,45 @@ const BurgersData = [
   },
 ];
 
+const PizzasData = [
+  {
+    id: 1,
+    title: 'Cheese Pizza',
+    image: require('../assets/pizza3.png'),
+    star: require('../assets/stars.png'),
+    price: '$12',
+  },
+  {
+    id: 2,
+    title: 'Veggie Pizza',
+    image: require('../assets/pizza1.png'),
+    star: require('../assets/stars.png'),
+    price: '$15',
+  },
+  {
+    id: 3,
+    title: 'Pepperoni Pizza',
+    image: require('../assets/pizza2.png'),
+    star: require('../assets/stars.png'),
+    price: '$20',
+  },
+  {
+    id: 4,
+    title: 'Margherita Pizza',
+    image: require('../assets/pizza4.png'),
+    star: require('../assets/stars.png'),
+    price: '$20',
+  },
+  {
+    id: 5,
+    title: 'Meat Pizza',
+    image: require('../assets/pizza5.png'),
+    star: require('../assets/stars.png'),
+    price: '$20',
+  },
+];
+
+
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState(1);
   const [selectedBurger, setSelectedBurger] = useState(null);
@@ -264,7 +303,7 @@ export default function Home() {
           />
         </View>
       </View>
-      {foodCategory == 1 && (
+      {foodCategory == 1 && 
         <View style={{marginTop: 20}}>
           <Text style={{fontSize: 18, color: 'black'}}>Burgers</Text>
           <View>
@@ -279,9 +318,24 @@ export default function Home() {
             </View>
           </View>
         </View>
-      )}
+      }
 
-      {foodCategory == 2 && <Text>Pizzas come here</Text>}
+      {foodCategory == 2 && 
+              <View style={{marginTop: 20}}>
+              <Text style={{fontSize: 18, color: 'black'}}>Pizzas</Text>
+              <View>
+                <View style={{marginTop: 15, height: 230}}>
+                  <FlatList
+                    data={PizzasData}
+                    renderItem={renderBurgers}
+                    horizontal
+                    keyExtractor={item => item.id}
+                    showsHorizontalScrollIndicator={false}
+                  />
+                </View>
+              </View>
+            </View>
+      }
     </View>
   );
 }
